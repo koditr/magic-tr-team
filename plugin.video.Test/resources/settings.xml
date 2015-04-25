@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+  <!-- General -->
+  <category label="001">
+		<setting id="Username" label="xbmcTR userName" type="text" default=""/>
+		<setting id="password"   label="xbmcTR passWord" type="text" option="hidden" default=""/>
+		<setting id="download-folder" type="folder" source="files" label="Indirme Klasoru"  option="writeable" default=""/>
+		<setting id="log"   label="test" type="text" option="" default="false"/>
+  </category>
+</settings>
