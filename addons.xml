@@ -50,7 +50,7 @@
        version="0.0.14"
        provider-name="xbmcTR TEAM">
     <requires>
-		<import addon="xbmc.python" version="1.0"/>
+		<import addon="xbmc.python" version="2.1.0"/>
 		<import addon="script.module.beautifulsoup" version="3.0.8"/>
 		<import addon="script.module.simplejson" />
 		<import addon="script.module.xbmctr" />
