@@ -154,7 +154,7 @@ def Yeni(url):
                 thumbnail=panel[i].find('img')['src'].encode('utf-8', 'ignore')
                 xbmctools.addDir(fileName,'[COLOR beige][B][COLOR blue]>[/COLOR]'+name+'[/B][/COLOR]',"dizivideolinks(url,name)",url,thumbnail,thumbnail)
          ####---------------Sonraki sayfa-------------------------------########
-        page=re.compile('<span class=\'current\'>.*?</span><a href=\'(.*?)\' class=\'page larger\'>(.*?)</a>').findall(link)
+        page=re.compile('<span class=\'current\'>.*?</span><a class="page larger" href="(.*?)">(.*?)</a>').findall(link)
         for Url,name in page:
                
                 xbmctools.addDir(fileName,'[COLOR blue][B]Sayfa >>[/B][/COLOR]'+'[COLOR red][B]'+name+'[/B][/COLOR]', "Yeni(url)",Url,"special://home/addons/plugin.video.magicTR/resources/images/sonrakisayfa.png")

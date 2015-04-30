@@ -154,7 +154,7 @@ def Yeni(url):
                 thumbnail=panel[i].find('img')['src'].encode('utf-8', 'ignore')
                 xbmctools.addDir(fileName,'[COLOR beige][B][COLOR blue]>[/COLOR]'+name+'[/B][/COLOR]',"dizivideolinks(url,name)",url,thumbnail,thumbnail)
          ####---------------Sonraki sayfa-------------------------------########
-        page=re.compile('<span class=\'current\'>.*?</span><a class="page larger" href="(.*?)">(.*?)</a>').findall(link)
+        page=re.compile('<span\nclass=\'current\'>.*?</span><a\nclass="page larger" href="(.*?)">(.*?)</a>').findall(link)
         for Url,name in page:
                 xbmctools.addDir(fileName,'[COLOR blue][B]Sayfa >>[/B][/COLOR]'+'[COLOR red][B]'+name+'[/B][/COLOR]', "Yeni(url)",Url,"special://home/addons/plugin.video.magicTR/resources/images/sonrakisayfa.png")
 
@@ -431,7 +431,7 @@ def dizivideolinks(url,name):
                         yt2=re.compile('http:\/\/www.youtube.com\/embed\/(.*?)feature=player_detailpage"').findall(link)
                         for url in yt2:
                                 
-                                url=url.replace('?','')
+                                url=url.replace('?','').replace('iv_load_policy=3','').replace('iv_load_policy=3&#038;','')
                                
                                 url='plugin://plugin.video.youtube/?action=play_video&videoid='+str(url)
                                 xbmctools.addLink(name+' '+'[COLOR beige][B]'+name2+'[/B][/COLOR]',url,'')
@@ -486,9 +486,9 @@ def dizivideolinks(url,name):
                         yt4=re.compile('http://www.youtube.com/embed/(.*?)showinfo=0"').findall(link)
                         for url in yt4:
                                 
-                                url=url.replace('?','')
+                                url=url.replace('?','').replace('iv_load_policy=3','').replace('iv_load_policy=3&#038;','')
                                
-                                url='plugin://plugin.video.youtube/?action=play_video&videoid='+str(url)
+                                url='plugin://plugin.video.youtube/play/?video_id='+str(url)
                                 xbmctools.addLink(name+' '+'[COLOR beige][B]'+name2+'[/B][/COLOR]',url,'')
                                 listitem = xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage='')
                                 listitem.setInfo('video', {'name': name } )
@@ -507,7 +507,7 @@ def dizivideolinks(url,name):
 
                         pass
 
-                
+
                 try:
                         
                         yt5=re.compile('\'file\': \'(.*?)\'').findall(link)
@@ -638,6 +638,62 @@ def dizivideolinks(url,name):
 
                 except:
                         pass
+
+
+                try:
+                      okru2=re.compile('http://www.can(.*?)" width=\'100%\'').findall(link)
+                      for url in okru2:
+                                url='http://www.can'+url
+
+                                link=xbmctools.get_url(url)
+                                match4=re.compile('"file":"(.*?)"').findall(link)
+                                for url in match4:
+                                        url=url.replace('\&','&')
+                                xbmctools.addLink(name+' '+'[COLOR beige][B]'+name2+'[/B][/COLOR]',url,'')
+                                listitem = xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage='')
+                                listitem.setInfo('video', {'name': name } )
+                                playList.add(url,listitem=listitem)
+                                loadedLinks = loadedLinks + 1
+                                percent = (loadedLinks * 100)/totalLinks
+                                remaining_display ='[COLOR yellow]'+'Islem Yapilan Video Sayisi'+':     '+'[B]' +str(loadedLinks)+'[/COLOR]'+'[COLOR blue]'+' / '+'[/COLOR]'+'[COLOR green]'+str(totalLinks)+'[/B]'+'[/COLOR]'+'[COLOR lightgreen]'+'   '+'Video Bulundu'+'[/COLOR]'
+                                note='[COLOR pink]'+'http://www.koditr.org'+'[/COLOR]'+'      '+'[COLOR beige][B]'+'magicTR Team'+'[/B][/COLOR]'
+                                pDialog.update(percent,'[COLOR red][B]'+'Videolar Olusturuluyor... Lutfen Bekleyin'+'[/B][/COLOR]',remaining_display,note)
+                                time.sleep(3)
+                                pDialog.close()
+                                if (pDialog.iscanceled()):
+                                        return False
+
+                                
+
+
+                except:
+                        pass
+
+
+                try:
+                      m3u82=re.compile('file:"(.*?)\?",width:').findall(link)
+                      for url in m3u82:
+                                                                               
+                                xbmctools.addLink(name+' '+'[COLOR beige][B]'+name2+'[/B][/COLOR]',url,'')
+                                listitem = xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage='')
+                                listitem.setInfo('video', {'name': name } )
+                                playList.add(url,listitem=listitem)
+                                loadedLinks = loadedLinks + 1
+                                percent = (loadedLinks * 100)/totalLinks
+                                remaining_display ='[COLOR yellow]'+'Islem Yapilan Video Sayisi'+':     '+'[B]' +str(loadedLinks)+'[/COLOR]'+'[COLOR blue]'+' / '+'[/COLOR]'+'[COLOR green]'+str(totalLinks)+'[/B]'+'[/COLOR]'+'[COLOR lightgreen]'+'   '+'Video Bulundu'+'[/COLOR]'
+                                note='[COLOR pink]'+'http://www.koditr.org'+'[/COLOR]'+'      '+'[COLOR beige][B]'+'magicTR Team'+'[/B][/COLOR]'
+                                pDialog.update(percent,'[COLOR red][B]'+'Videolar Olusturuluyor... Lutfen Bekleyin'+'[/B][/COLOR]',remaining_display,note)
+                                if (pDialog.iscanceled()):
+                                        return False
+
+                                
+
+
+                except:
+                        pass
+
+
+
         xbmcPlayer.play(playList)
                                              
 

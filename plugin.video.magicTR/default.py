@@ -1,13 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# for more info please visit http://xbmctr.com
-'''
-Created on 21 sempember 2012
 
-@author: drascom
-@version: 0.2.0
-
-'''
 
 import os
 import sys
@@ -18,9 +11,7 @@ from thread import start_new_thread
 
 
 
-#--------------Sifre-----------#
 
-#----------------
 addon_id = 'plugin.video.magicTR'
 
 __settings__ = xbmcaddon.Addon(id=addon_id)
@@ -62,6 +53,7 @@ def main():
     delay=[]
     mem.baslamak(threadName, delay)
     mem.playlist3()
+    versiyonkontrol()
 
 maaac=(xbmc.getInfoLabel("Network.MacAddress"))
 
@@ -75,7 +67,7 @@ maaac=(xbmc.getInfoLabel("Network.MacAddress"))
 ##    isp=isp
 
 
-bilinmeyen = ('http://magic-tr-team.googlecode.com/svn/trunk/bilinmeyen/test.html')
+bilinmeyen = ('https://github.com/koditr/magic-tr-team/raw/master/bilinmeyen/test.html')
 link=xbmctools.get_url(bilinmeyen)
 match=re.compile('[D-L3]').findall(link)
 
@@ -222,7 +214,31 @@ def pencere():
 
             
 #######################################################################################
+def versiyonkontrol():
+    
+    url='https://github.com/koditr/magic-tr-team/raw/master/addons.xml'
+    link=xbmctools.get_url(url)
+    match=re.compile('version="(.*?)"').findall(link)
 
+    adonversiyonu =   xbmcaddon.Addon().getAddonInfo("version")
+    if adonversiyonu == match[2]:
+        pass
+    else:
+        progress = xbmcgui.DialogProgress()
+        progress.create('Uyari Versiyon Hatasi', '')
+
+        i = 0
+        while i < 6:
+            percent = int( ( i / 5.0 ) * 100)
+            message3='                 [COLOR red][B]Suanki Kullandiginiz Versiyon eskidir.[/B][/COLOR]'
+            message2 ='                                                  [COLOR green][B]'+str(i)+'[/B][/COLOR]'
+            message= "                 [COLOR yellow][B]Dogru Versiyon Numarasi :[/B][/COLOR]    "+'[COLOR blue][B]'+match[2]+'[/B][/COLOR]'
+            progress.update( percent, message3, message, message2 )
+            xbmc.sleep( 1000 )
+            if progress.iscanceled():
+                break
+            i = i + 1
+        progress.close()
 
 
         
