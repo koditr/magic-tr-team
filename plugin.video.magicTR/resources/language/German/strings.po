@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+
+msgctxt "#350000"
+msgid "[COLOR yellow][B]Mitgliedschaft Name:[/B][/COLOR]"
+msgstr ""
+
+msgctxt "#350001"
+msgid "[COLOR beige][B]testter[/B][/COLOR]"
+msgstr ""
+
+msgctxt "#350002"
+msgid "[COLOR brown][B]Typ der Mitgliedschaft:[/B][/COLOR]"
+msgstr ""
+
+msgctxt "#350003"
+msgid "[COLOR beige][B]Platinum Member[/B][/COLOR]"
+msgstr ""
+
+msgctxt "#350004"
+msgid "[COLOR green][B]Ihre IP Adresse:[/B][/COLOR]"
+msgstr ""
+
+msgctxt "#350005"
+msgid "[COLOR beige][B]80.143.249.35 [/B][/COLOR]"
+msgstr ""
+
+msgctxt "#350006"
+msgid "[COLOR red][B]Deine E-Mail:[/B][/COLOR]"
+msgstr ""
+msgctxt "#350007"
+msgid "[COLOR beige][B]arslan.zell@gmail.com[/B][/COLOR]"
+msgstr ""
+
+msgctxt "#350008"
+msgid "[COLOR orange][B]Mitgliedschaft Enddatum:[/B][/COLOR]"
+msgstr ""
+
+msgctxt "#350009"
+msgid "[COLOR beige][B][/B][/COLOR]"
+msgstr ""
+
+msgctxt "#3500010"
+msgid "[COLOR purple][B]Anzahl Eingeben:[/B][/COLOR]"
+msgstr ""
+
+msgctxt "#3500011"
+msgid "[COLOR beige][B]1573[/B][/COLOR]"
+msgstr ""
