@@ -164,11 +164,17 @@ def Yeni(url):
 def dizivideolinks(url,name):
         urlList=''
         ok=True
+        url=url+'/11'
+        
         link=xbmctools.get_url(url)
         match2=re.compile('href="(.*?)"><span>.*?</span>').findall(link)
         for partUrl in match2:
-                urlList=urlList+partUrl 
-                urlList=urlList+':;'
+                if "<" in partUrl:
+                        pass
+                else:
+                        urlList=urlList+partUrl
+                        urlList=urlList+':;'
+        url=url.replace('/11','/')
         total=url+':;'+urlList
         pDialog = xbmcgui.DialogProgress()
         ret = pDialog.create('Loading playlist...')
@@ -641,9 +647,8 @@ def dizivideolinks(url,name):
 
 
                 try:
-                      okru2=re.compile('http://www.can(.*?)" width=\'100%\'').findall(link)
+                      okru2=re.compile('<iframe src="(.*?)" width=\'100%\'').findall(link)
                       for url in okru2:
-                                url='http://www.can'+url
 
                                 link=xbmctools.get_url(url)
                                 match4=re.compile('"file":"(.*?)"').findall(link)
@@ -701,10 +706,3 @@ def showMessage(heading='IPTV', message = '', times = 5000, pics = addon_icon):
 		try: xbmc.executebuiltin('XBMC.Notification("%s", "%s", %s, "%s")' % (heading, message, times, pics))
 		except Exception, e:
 			xbmc.log( '[%s]: showMessage: exec failed [%s]' % (addon_id, e), 2 )
-
-
-
-
-
-
-
