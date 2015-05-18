@@ -22,7 +22,7 @@ sys.path.append(channels)
 folder = xbmc.translatePath(os.path.join(home, 'resources', 'lib'))
 sys.path.append(folder)
 import xbmctools
-import member as mem
+##import member as mem
 
 klasorler=os.walk(channels).next()[1]
 for klasor in klasorler:
@@ -49,10 +49,10 @@ def main():
         url=xbmc.translatePath(os.path.join(channels, klasor))
         xbmctools.addDir("xbmctools", name,"listing(IMAGES_PATH,url)", url,thumbnail)
     xbmc.executebuiltin("Container.SetViewMode(500)")
-    threadName=[]
-    delay=[]
-    mem.baslamak(threadName, delay)
-    mem.playlist3()
+##    threadName=[]
+##    delay=[]
+##    mem.baslamak(threadName, delay)
+##    mem.playlist3()
     versiyonkontrol()
 
 maaac=(xbmc.getInfoLabel("Network.MacAddress"))
