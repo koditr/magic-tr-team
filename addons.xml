@@ -21,7 +21,7 @@
 
 <addon id="plugin.video.magicTR"
        name="[COLOR beige]MAGIC[/COLOR][COLOR red]TR[/COLOR]"
-       version="1.9.42"
+       version="1.9.43"
        provider-name="KodiTR.org">
     <requires>
 		<import addon="xbmc.python" version="2.1.0"/>
