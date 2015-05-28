@@ -39,6 +39,22 @@ def main():
         
 #-------------------------------------------------#
         try:
+                html = xbmctools.sifre2()
+                name=__settings__.getSetting("Name")
+                login=__settings__.getSetting("Username")
+                password=__settings__.getSetting("password")
+                match = re.compile('<!--#li2#(.*?)-->').findall(html)
+                for web in match:
+                        web=xbmctools.angel(base64.b64decode(web))
+                        tr=re.compile('<isim>(.*?)</isim>\n<link>(.*?)</link>\n<resim>(.*?)</resim>').findall(web)
+                        for name,url2,Thumbnail in tr:
+                                if "--" in name:
+                                        pass
+                                else:
+                                        if "ugur" in name:
+                                                pass
+                                        else:
+                                                xbmctools.addDir(fileName,'[COLOR orange][B][COLOR purple]>>[/COLOR]  '+name+'[/B][/COLOR]',"VideoLinks2(name,url)",url2,Thumbnail,Thumbnail)  
                 
 
                 html = xbmctools.sifre5()
@@ -76,6 +92,30 @@ def VideoLinks(name,url):
                 xbmctools.playlist()
         else:
                 xbmctools.playlist2()
+def VideoLinks2(name,url):
+        
+        link=xbmctools.get_url(url)
+        match=re.compile('"mediaUrl":"(.*?)"').findall(link)
+        for url in match:
+                if match >1:
+                        del match [1]
+                        
+                        url=url.replace('\\','')
+                        xbmcPlayer = xbmc.Player()
+                        
+                        playList = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
+                        
+                        playList.clear()
+                        xbmctools.addLink('[COLOR blue][B]'+'RETURN List <<'+' [/B][/COLOR]','','http://png-4.findicons.com/files/icons/1714/dropline_neu/128/edit_undo.png')
+                        
+                        listitem = xbmcgui.ListItem(name)
+                        playList.add(url, listitem)
+                        xbmcPlayer.play(playList)
+                        exec_version = float(str(xbmc.getInfoLabel("System.BuildVersion"))[0:4])
+                        if exec_version < 14.0:
+                                xbmctools.playlist()
+                        else:
+                                xbmctools.playlist2()
 
 def showMessage(heading='IPTV', message = '', times = 5000, pics = addon_icon):
 		try: xbmc.executebuiltin('XBMC.Notification("%s", "%s", %s, "%s")' % (heading, message, times, pics))
