@@ -190,6 +190,7 @@ def dizivideolinks(url,name):
                         dm=re.compile('src="http://www.dailymotion.com/embed/video/(.*?)"').findall(link)
                         for url in dm:
                                 url = 'http://www.dailymotion.com/embed/video/'+url
+                                url=url.replace("&#038;","&")
                                 link=xbmctools.get_url(url)
                                 if "stream_hls_url" in link:
                                         match=re.compile('"stream_hls_url":"(.*?)"').findall(link)
@@ -201,10 +202,16 @@ def dizivideolinks(url,name):
                                         match=re.compile('"stream_h264_hq_url":"(.*?)"').findall(link)
                                 elif "stream_h264_hd1080_url" in link: 
                                         match=re.compile('"stream_h264_hd1080_url":"(.*?)"').findall(link)
+                                elif "auto" in link:
+                                        match=re.compile('"type":"application\\\\/x-mpegURL","url":"(.*?)"').findall(link)
+                                elif "380" in link:
+                                        match=re.compile('"380":\[\{"type":"video\\\\/mp4","url":"(.*?)"').findall(link)
+                                elif "480" in link:
+                                        match=re.compile('"480":\[\{"type":"video\\\\/mp4","url":"(.*?)"').findall(link)
                                 else:
                                         print "video yok"
                                 for url in match:
-                                        url=url.replace("\\","")
+                                        url=url.replace('\\',"")
                                        
                                 xbmctools.addLink(name+' '+'[COLOR beige][B]'+name2+'[/B][/COLOR]',url,'')
                                 listitem = xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage='')
@@ -217,6 +224,36 @@ def dizivideolinks(url,name):
                                 pDialog.update(percent,'[COLOR red][B]'+'Videolar Olusturuluyor... Lutfen Bekleyin'+'[/B][/COLOR]',remaining_display,note)
                                 if (pDialog.iscanceled()):
                                         return False
+
+                except:
+                        pass
+
+                try:
+                      mp4=re.compile('SRC="http://vid.ag/(.*?)" FRAMEBORDER=0').findall(link)
+                      for url in mp4:
+                                url="http://vid.ag/"+url
+                                link=get_url(url)
+                                match4=re.compile(',{file:"(.*?)",label:"SD"}').findall(link)
+                                for url in match4:
+                                    zong=""
+                                    print zong
+##                                        url=url.replace('\&','&')
+                                addLink(name+' '+'[COLOR beige][B]'+name2+'[/B][/COLOR]',url,'')
+                                listitem = xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage='')
+                                listitem.setInfo('video', {'name': name } )
+                                playList.add(url,listitem=listitem)
+                                loadedLinks = loadedLinks + 1
+                                percent = (loadedLinks * 100)/totalLinks
+                                remaining_display ='[COLOR yellow]'+'Islem Yapilan Video Sayisi'+':     '+'[B]' +str(loadedLinks)+'[/COLOR]'+'[COLOR blue]'+' / '+'[/COLOR]'+'[COLOR green]'+str(totalLinks)+'[/B]'+'[/COLOR]'+'[COLOR lightgreen]'+'   '+'Video Bulundu'+'[/COLOR]'
+                                note='[COLOR pink]'+'http://www.koditr.org'+'[/COLOR]'+'      '+'[COLOR beige][B]'+'magicTR Team'+'[/B][/COLOR]'
+                                pDialog.update(percent,'[COLOR red][B]'+'Videolar Olusturuluyor... Lutfen Bekleyin'+'[/B][/COLOR]',remaining_display,note)
+                                time.sleep(3)
+                                pDialog.close()
+                                if (pDialog.iscanceled()):
+                                        return False
+
+                                
+
 
                 except:
                         pass

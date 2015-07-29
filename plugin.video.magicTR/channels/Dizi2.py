@@ -154,7 +154,7 @@ def Yeni(url):
                 thumbnail=panel[i].find('img')['src'].encode('utf-8', 'ignore')
                 xbmctools.addDir(fileName,'[COLOR beige][B][COLOR blue]>[/COLOR]'+name+'[/B][/COLOR]',"dizivideolinks(url,name)",url,thumbnail,thumbnail)
          ####---------------Sonraki sayfa-------------------------------########
-        page=re.compile('<span\nclass=\'current\'>.*?</span><a\nclass="page larger" href="(.*?)">(.*?)</a>').findall(link)
+        page=re.compile('\'current\'>.*?</.*?="page larger" href="(.*?)">(.*?)</a>').findall(link)
         for Url,name in page:
                 xbmctools.addDir(fileName,'[COLOR blue][B]Sayfa >>[/B][/COLOR]'+'[COLOR red][B]'+name+'[/B][/COLOR]', "Yeni(url)",Url,"special://home/addons/plugin.video.magicTR/resources/images/sonrakisayfa.png")
 
@@ -206,6 +206,12 @@ def dizivideolinks(url,name):
                                         match=re.compile('"stream_h264_hq_url":"(.*?)"').findall(link)
                                 elif "stream_h264_hd1080_url" in link: 
                                         match=re.compile('"stream_h264_hd1080_url":"(.*?)"').findall(link)
+                                elif "auto" in link:
+                                        match=re.compile('"type":"application\\\\/x-mpegURL","url":"(.*?)"').findall(link)
+                                elif "380" in link:
+                                        match=re.compile('"380":\[\{"type":"video\\\\/mp4","url":"(.*?)"').findall(link)
+                                elif "480" in link:
+                                        match=re.compile('"480":\[\{"type":"video\\\\/mp4","url":"(.*?)"').findall(link)
                                 else:
                                         print "video yok"
                                 for url in match:
@@ -222,6 +228,37 @@ def dizivideolinks(url,name):
                                 pDialog.update(percent,'[COLOR red][B]'+'Videolar Olusturuluyor... Lutfen Bekleyin'+'[/B][/COLOR]',remaining_display,note)
                                 if (pDialog.iscanceled()):
                                         return False
+
+                except:
+                        pass
+
+
+                try:
+                      mp4=re.compile('SRC="http://vid.ag/(.*?)" FRAMEBORDER=0').findall(link)
+                      for url in mp4:
+                                url="http://vid.ag/"+url
+                                link=get_url(url)
+                                match4=re.compile(',{file:"(.*?)",label:"SD"}').findall(link)
+                                for url in match4:
+                                        print url
+
+##                                        url=url.replace('\&','&')
+                                addLink(name+' '+'[COLOR beige][B]'+name2+'[/B][/COLOR]',url,'')
+                                listitem = xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage='')
+                                listitem.setInfo('video', {'name': name } )
+                                playList.add(url,listitem=listitem)
+                                loadedLinks = loadedLinks + 1
+                                percent = (loadedLinks * 100)/totalLinks
+                                remaining_display ='[COLOR yellow]'+'Islem Yapilan Video Sayisi'+':     '+'[B]' +str(loadedLinks)+'[/COLOR]'+'[COLOR blue]'+' / '+'[/COLOR]'+'[COLOR green]'+str(totalLinks)+'[/B]'+'[/COLOR]'+'[COLOR lightgreen]'+'   '+'Video Bulundu'+'[/COLOR]'
+                                note='[COLOR pink]'+'http://www.koditr.org'+'[/COLOR]'+'      '+'[COLOR beige][B]'+'magicTR Team'+'[/B][/COLOR]'
+                                pDialog.update(percent,'[COLOR red][B]'+'Videolar Olusturuluyor... Lutfen Bekleyin'+'[/B][/COLOR]',remaining_display,note)
+                                time.sleep(3)
+                                pDialog.close()
+                                if (pDialog.iscanceled()):
+                                        return False
+
+                                
+
 
                 except:
                         pass
