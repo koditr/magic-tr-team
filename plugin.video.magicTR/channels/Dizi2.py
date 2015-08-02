@@ -234,16 +234,16 @@ def dizivideolinks(url,name):
 
 
                 try:
-                      mp4=re.compile('SRC="http://vid.ag/(.*?)" FRAMEBORDER=0').findall(link)
+                      mp4=re.compile('"http://vid.ag/(.*?)"').findall(link)
                       for url in mp4:
                                 url="http://vid.ag/"+url
-                                link=get_url(url)
+                                link=xbmctools.get_url(url)
                                 match4=re.compile(',{file:"(.*?)",label:"SD"}').findall(link)
                                 for url in match4:
-                                        print url
+                                        zong=''
 
 ##                                        url=url.replace('\&','&')
-                                addLink(name+' '+'[COLOR beige][B]'+name2+'[/B][/COLOR]',url,'')
+                                xbmctools.addLink(name+' '+'[COLOR beige][B]'+name2+'[/B][/COLOR]',url,'')
                                 listitem = xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage='')
                                 listitem.setInfo('video', {'name': name } )
                                 playList.add(url,listitem=listitem)
