@@ -1,1 +1,0 @@
-__all__ = ['Dizi1', 'Dizi2', 'Live_TV', 'Live_TV_2', 'Sinema1', 'Sinema2']
